@@ -517,9 +517,11 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	public void refresh() throws BeansException, IllegalStateException {
 		synchronized (this.startupShutdownMonitor) {
 			// Prepare this context for refreshing.
+			// 预刷新，设置容器状态，获取属性，验证必要属性，获取earlyApplicationListeners，earlyApplicationEvents
 			prepareRefresh();
 
 			// Tell the subclass to refresh the internal bean factory.
+			// 获取beanFactory
 			ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
 
 			// Prepare the bean factory for use in this context.
@@ -598,6 +600,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		}
 
 		// Initialize any placeholder property sources in the context environment.
+		// 这里会让子类去具体实现，可以查看org.springframework.web.context.support.AbstractRefreshableWebApplicationContext的实现
 		initPropertySources();
 
 		// Validate that all properties marked as required are resolvable:
